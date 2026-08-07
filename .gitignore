@@ -1,0 +1,36 @@
+# Allow-list, not deny-list.
+#
+# A deny-list only protects paths someone remembered to name. This repo
+# previously ignored the key by filename pattern while leaving source_data/
+# — which holds the raw exports with farmer names, GPS coordinates and
+# village names — unignored, one `git add -A` away from publication.
+#
+# Everything is ignored by default. Publishable paths are named explicitly.
+
+*
+
+!.gitignore
+!README.md
+!CHANGELOG.md
+!LICENSE
+
+!data/
+!data/*.csv
+
+!docs/
+!docs/*.md
+
+!scripts/
+!scripts/*.py
+
+# Belt and braces: these must never be committed even if a rule above is
+# later loosened.
+source_data/
+previous_release/
+private/
+*_CONFIDENTIAL.*
+*pond_key*
+*pond_id_mapping*
+private_config.py
+export-*.csv
+.DS_Store
