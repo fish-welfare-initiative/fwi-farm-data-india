@@ -18,13 +18,7 @@ We recommend excluding them from analysis. See
 `water_quality.csv` now holds 12,431 records. Analyses that used Nellore data
 from this period should be re-run.
 
-### Changed
-
-- One staff member's name has been withheld in `Observer`, `Added by` and
-  `Logged by` and replaced with `Name withheld`; one free-text note
-  referring to them by name was reworded.
-
-No other values changed. Pond identifiers are unchanged from 3.0.0.
+Pond identifiers are unchanged from 3.0.0.
 
 ## [3.0.0] - 2026-08-07
 

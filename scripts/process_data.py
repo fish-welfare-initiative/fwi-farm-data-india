@@ -57,12 +57,10 @@ BARE = _private.BARE
 BARE_STOP = _private.BARE_STOP
 REDACT_SPANS = _private.REDACT_SPANS   # place names and similar, by exact span
 
-# Staff whose names are withheld from publication. Held in the private config
-# for the same reason as the note fragments: listing them here would publish
-# the names this exists to remove. Required, not optional -- a rebuild without
-# it would silently restore the names.
-WITHHELD_STAFF = set(_private.WITHHELD_STAFF)
-WITHHELD_LABEL = "Name withheld"
+# Staff names not to publish, blanked in staff columns and replaced in notes.
+# Held in the private config for the same reason as the note fragments.
+# Required: a build without it could publish a name.
+STAFF_NAMES = set(_private.STAFF_NAMES)
 STAFF_COLS = {"Observer", "Added by", "Logged by", "Data verified by"}
 
 # Retraction (v3.1.0). Fabricated water quality data was found in Nellore, so
@@ -72,6 +70,7 @@ STAFF_COLS = {"Observer", "Added by", "Logged by", "Data verified by"}
 RETRACT_REGION = "Nellore"
 RETRACT_FROM = datetime(2024, 11, 1)
 RETRACTED_FILE = "water_quality_nellore_retracted.csv"
+RETRACTED_DROP = {"Observer"}
 
 
 def fish_category(v):
@@ -137,7 +136,7 @@ def clean_text(v, suffix, old2new=None):
     """
     if not isinstance(v, str) or not v.strip():
         return v
-    for name in WITHHELD_STAFF:
+    for name in STAFF_NAMES:
         v = re.sub(rf"\b{re.escape(name)}\b", "our field staff member", v)
     for snip in REMOVE_SNIPPETS:
         if snip in v:
@@ -229,13 +228,13 @@ def merge(pub, new, dedupe_within, keycols):
     return kept, dropped
 
 
-def write(path, rows, suffix, old2new):
+def write(path, rows, suffix, old2new, drop=frozenset()):
     if not rows:
         return 0
     fields = []
     for r in rows:
         for k in r:
-            if k not in fields and k not in DROP:
+            if k not in fields and k not in DROP and k not in drop:
                 fields.append(k)
     fields = ["pond_id", "region"] + [f for f in fields if f not in ("pond_id", "region")]
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -246,8 +245,8 @@ def write(path, rows, suffix, old2new):
             out = {}
             for k in fields:
                 v = r.get(k)
-                if k in STAFF_COLS and (v or "").strip() in WITHHELD_STAFF:
-                    v = WITHHELD_LABEL
+                if k in STAFF_COLS and (v or "").strip() in STAFF_NAMES:
+                    v = ""
                 elif k == FISH_SRC:
                     v = fish_category(v)
                 elif isinstance(v, str):
@@ -306,7 +305,8 @@ def main():
         rows, dropped = merge(pub, new, dw, keys)
         if name == "water_quality.csv":
             rows, retracted = split_retracted(rows)
-            nr = write(OUT / "data" / RETRACTED_FILE, retracted, suffix, old2new)
+            nr = write(OUT / "data" / RETRACTED_FILE, retracted, suffix, old2new,
+                       drop=RETRACTED_DROP)
             print(f"{RETRACTED_FILE:24} retracted={nr}")
         n = write(OUT / "data" / name, rows, suffix, old2new)
         extra = f"  (dropped {dropped} re-entry)" if dropped else ""
