@@ -64,8 +64,9 @@ This data has been anonymised to protect farmer privacy:
   supplier can act as a fingerprint for an individual farm.
 - **Free-text notes reviewed** for names and identifying references.
 
-FWI staff names are retained in `Observer`, `Added by` and `Logged by`, except where a name has
-been withheld, which appears as `Name withheld`.
+FWI staff names are retained in `Added by` and `Logged by`, except where a name has been withheld,
+which appears as `Name withheld`. Water quality data does not identify the staff member who took
+each measurement.
 
 > **Pond identifiers use the `ara2_` prefix from v3.0.0 onward.** Earlier releases used `pond_`.
 > Identifiers are not comparable across releases, and the distinct prefix means a cross-release

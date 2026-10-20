@@ -20,9 +20,12 @@ from this period should be re-run.
 
 ### Changed
 
-- One staff member's name has been withheld in `Observer`, `Added by` and
-  `Logged by` and replaced with `Name withheld`; one free-text note
-  referring to them by name was reworded.
+- `Observer` column removed from `water_quality.csv` and
+  `water_quality_nellore_retracted.csv`. Water quality data no longer
+  identifies the staff member who took each measurement.
+- One staff member's name has been withheld in `Added by` and `Logged by`
+  and replaced with `Name withheld`; one free-text note referring to them
+  by name was reworded.
 
 No other values changed. Pond identifiers are unchanged from 3.0.0.
 

@@ -35,7 +35,6 @@ Water quality measurements collected during farm visits. We take most measuremen
 | `Reason follow up not possible` | If follow-up was not possible, the reason why |
 | `Group` | Internal grouping used to organize farms, based on either frequency of observed issues and/or participation in certain studies. Values include: Regular ara pond, Focus group 2/3/4, Ara v1 2 weekly, Ara v12 monthly, Ara v12 weekly, Outcome evaluation, and others. |
 | `Pond status` | Treatment, Control, or Assessment. Note: "Assessment" farms were treated as control farms. Some controls may not be fully unbiased, so caution is advised when comparing treatment/control outcomes. |
-| `Observer` | FWI staff member who recorded the measurement. `Name withheld` where a staff name has been withheld. |
 | `Equipment` | Measurement equipment used. Note: Using different equipment is one source of measurement variation, as different meters may measure the same water at slightly different values. In our experience, the most accurate measurements are: **DO: Winkler's Method** and **Ammonia: Photometer**. For pH and other parameters, any equipment listed is accurate as methods have remained consistent. |
 | `Weather` | Weather conditions during measurement |
 
@@ -392,4 +391,5 @@ not to collect, not data that went missing.
 | Future-dated event | One stocking event in `stocking_harvest.csv` is dated after the release date, most likely a planned event recorded as actual. |
 | Missing harvest weights | See the note on removed financial content above. |
 | Retracted Nellore water quality data | Nellore water quality measurements from 1 November 2024 onward are not in `water_quality.csv`. They are in `water_quality_nellore_retracted.csv`; see that section above. |
-| Withheld staff name | One staff member's name appears as `Name withheld` in `Observer`, `Added by` and `Logged by`. |
+| Withheld staff name | One staff member's name appears as `Name withheld` in `Added by` and `Logged by`. |
+| No observer column | Water quality files do not record which staff member took each measurement. The `Observer` column was removed in v3.1.0. |

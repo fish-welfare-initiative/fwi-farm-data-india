@@ -40,6 +40,8 @@ OUT = Path(".")
 
 DROP = {
     "Farmer", "Location", "Village", "Sr. No", "parsed_date",
+    # v3.1.0: water quality data no longer identifies who took each measurement.
+    "Observer",
     # README states financial figures are excluded; these were retained as
     # empty headers in v2.0.0, which contradicted that claim on its face.
     "How much did the farmer pay for the stocked fish and shrimp? (in INR)",
@@ -63,7 +65,7 @@ REDACT_SPANS = _private.REDACT_SPANS   # place names and similar, by exact span
 # it would silently restore the names.
 WITHHELD_STAFF = set(_private.WITHHELD_STAFF)
 WITHHELD_LABEL = "Name withheld"
-STAFF_COLS = {"Observer", "Added by", "Logged by", "Data verified by"}
+STAFF_COLS = {"Added by", "Logged by", "Data verified by"}
 
 # Retraction (v3.1.0). Fabricated water quality data was found in Nellore, so
 # every Nellore measurement on or after the Winkler changeover is published
