@@ -28,6 +28,7 @@ publication rather than after.
 import csv
 import re
 import sys
+from datetime import datetime
 from pathlib import Path
 
 import private_config as _private   # not in this repository
@@ -55,6 +56,22 @@ PREFIXED = _private.PREFIXED
 BARE = _private.BARE
 BARE_STOP = _private.BARE_STOP
 REDACT_SPANS = _private.REDACT_SPANS   # place names and similar, by exact span
+
+# Staff whose names are withheld from publication. Held in the private config
+# for the same reason as the note fragments: listing them here would publish
+# the names this exists to remove. Required, not optional -- a rebuild without
+# it would silently restore the names.
+WITHHELD_STAFF = set(_private.WITHHELD_STAFF)
+WITHHELD_LABEL = "Name withheld"
+STAFF_COLS = {"Observer", "Added by", "Logged by", "Data verified by"}
+
+# Retraction (v3.1.0). Fabricated water quality data was found in Nellore, so
+# every Nellore measurement on or after the Winkler changeover is published
+# separately, as retracted. See README and
+# https://www.fishwelfareinitiative.org/post/data-issues
+RETRACT_REGION = "Nellore"
+RETRACT_FROM = datetime(2024, 11, 1)
+RETRACTED_FILE = "water_quality_nellore_retracted.csv"
 
 
 def fish_category(v):
@@ -120,6 +137,8 @@ def clean_text(v, suffix, old2new=None):
     """
     if not isinstance(v, str) or not v.strip():
         return v
+    for name in WITHHELD_STAFF:
+        v = re.sub(rf"\b{re.escape(name)}\b", "our field staff member", v)
     for snip in REMOVE_SNIPPETS:
         if snip in v:
             return ""
@@ -227,13 +246,33 @@ def write(path, rows, suffix, old2new):
             out = {}
             for k in fields:
                 v = r.get(k)
-                if k == FISH_SRC:
+                if k in STAFF_COLS and (v or "").strip() in WITHHELD_STAFF:
+                    v = WITHHELD_LABEL
+                elif k == FISH_SRC:
                     v = fish_category(v)
                 elif isinstance(v, str):
                     v = clean_text(v, suffix, old2new)
                 out[k] = v
             w.writerow(out)
     return len(rows)
+
+
+def split_retracted(rows):
+    """Separate retracted rows. Fails closed on an unparseable date in the
+    retracted region, since a silent parse failure would leave it published."""
+    keep, retracted = [], []
+    for r in rows:
+        if r.get("region") != RETRACT_REGION:
+            keep.append(r)
+            continue
+        raw = (r.get("Date of data collection") or "").strip()
+        try:
+            d = datetime.strptime(raw, "%m/%d/%Y")
+        except ValueError:
+            sys.exit(f"FATAL: unparseable date {raw!r} in a {RETRACT_REGION} "
+                     "water quality row; cannot apply the retraction.")
+        (retracted if d >= RETRACT_FROM else keep).append(r)
+    return keep, retracted
 
 
 def main():
@@ -265,6 +304,10 @@ def main():
         if u1 or u2:
             problems.append((name, sorted(u1 | u2)[:10]))
         rows, dropped = merge(pub, new, dw, keys)
+        if name == "water_quality.csv":
+            rows, retracted = split_retracted(rows)
+            nr = write(OUT / "data" / RETRACTED_FILE, retracted, suffix, old2new)
+            print(f"{RETRACTED_FILE:24} retracted={nr}")
         n = write(OUT / "data" / name, rows, suffix, old2new)
         extra = f"  (dropped {dropped} re-entry)" if dropped else ""
         print(f"{name:24} published={len(pub):6}  new={len(new):5}  merged={n:6}{extra}")

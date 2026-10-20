@@ -35,7 +35,7 @@ Water quality measurements collected during farm visits. We take most measuremen
 | `Reason follow up not possible` | If follow-up was not possible, the reason why |
 | `Group` | Internal grouping used to organize farms, based on either frequency of observed issues and/or participation in certain studies. Values include: Regular ara pond, Focus group 2/3/4, Ara v1 2 weekly, Ara v12 monthly, Ara v12 weekly, Outcome evaluation, and others. |
 | `Pond status` | Treatment, Control, or Assessment. Note: "Assessment" farms were treated as control farms. Some controls may not be fully unbiased, so caution is advised when comparing treatment/control outcomes. |
-| `Observer` | FWI staff member who recorded the measurement |
+| `Observer` | FWI staff member who recorded the measurement. `Name withheld` where a staff name has been withheld. |
 | `Equipment` | Measurement equipment used. Note: Using different equipment is one source of measurement variation, as different meters may measure the same water at slightly different values. In our experience, the most accurate measurements are: **DO: Winkler's Method** and **Ammonia: Photometer**. For pH and other parameters, any equipment listed is accurate as methods have remained consistent. |
 | `Weather` | Weather conditions during measurement |
 
@@ -135,6 +135,22 @@ In August 2025, FWI changed how ammonia is measured. For details, see: [Changes 
 | `Ammonia—TAN (NH3) (mg/L)` | Aug 2025 onwards | TAN expressed as NH₃. Used during transition for comparison. |
 
 **Note:** During the transition period (Aug 2025 onwards), both old and new metrics may be tracked. Earlier records will only have the TAN column populated.
+
+---
+
+## water_quality_nellore_retracted.csv
+
+**Retracted data — treat with caution.** Same columns as `water_quality.csv`.
+
+Holds every Nellore water quality measurement dated on or after 1 November 2024
+(1,136 records, 45 ponds). We found that at least one measurement in this period
+had been fabricated and suspect there were others, so we have retracted the whole
+period. The cutoff is when Nellore switched to the Winkler method for dissolved
+oxygen, which introduced a laboratory step that could be skipped.
+
+The records are published for transparency only; we recommend excluding them from
+analysis. Learn more on our blog:
+[Data Issues and Retraction in Our Farm Program](https://www.fishwelfareinitiative.org/post/data-issues).
 
 ---
 
@@ -375,3 +391,5 @@ not to collect, not data that went missing.
 | Duplicate pond registration | One pond appears twice in `enrolled_ponds.csv` with differing property area, pond area and depth, recorded in surveys about four years apart. Both records are retained rather than one being silently chosen. |
 | Future-dated event | One stocking event in `stocking_harvest.csv` is dated after the release date, most likely a planned event recorded as actual. |
 | Missing harvest weights | See the note on removed financial content above. |
+| Retracted Nellore water quality data | Nellore water quality measurements from 1 November 2024 onward are not in `water_quality.csv`. They are in `water_quality_nellore_retracted.csv`; see that section above. |
+| Withheld staff name | One staff member's name appears as `Name withheld` in `Observer`, `Added by` and `Logged by`. |
