@@ -35,6 +35,7 @@ Water quality measurements collected during farm visits. We take most measuremen
 | `Reason follow up not possible` | If follow-up was not possible, the reason why |
 | `Group` | Internal grouping used to organize farms, based on either frequency of observed issues and/or participation in certain studies. Values include: Regular ara pond, Focus group 2/3/4, Ara v1 2 weekly, Ara v12 monthly, Ara v12 weekly, Outcome evaluation, and others. |
 | `Pond status` | Treatment, Control, or Assessment. Note: "Assessment" farms were treated as control farms. Some controls may not be fully unbiased, so caution is advised when comparing treatment/control outcomes. |
+| `Observer` | FWI staff member who recorded the measurement |
 | `Equipment` | Measurement equipment used. Note: Using different equipment is one source of measurement variation, as different meters may measure the same water at slightly different values. In our experience, the most accurate measurements are: **DO: Winkler's Method** and **Ammonia: Photometer**. For pH and other parameters, any equipment listed is accurate as methods have remained consistent. |
 | `Weather` | Weather conditions during measurement |
 
@@ -139,7 +140,7 @@ In August 2025, FWI changed how ammonia is measured. For details, see: [Changes 
 
 ## water_quality_nellore_retracted.csv
 
-**Retracted data — treat with caution.** Same columns as `water_quality.csv`.
+**Retracted data — treat with caution.** Same columns as `water_quality.csv`, except `Observer`.
 
 Holds every Nellore water quality measurement dated on or after 1 November 2024
 (1,136 records, 45 ponds). We found that at least one measurement in this period
@@ -165,6 +166,7 @@ Snapshot of ponds enrolled in the ARA program as of February 2, 2026.
 | `region` | Geographic region (Eluru or Nellore) |
 | `Enrollment mechanism` | How the farmer was recruited to the program (e.g., "Organic" for organic outreach, "PwC" for PwC partnership referrals) |
 | `Status` | Treatment or Control designation |
+| `Added by` | FWI staff member who added the pond |
 | `Culture change` | Whether the farmer changed their culture type (e.g., "Grow out to breed out") |
 | `Existing practices` | Practices the farmer was already doing before joining ARA |
 | `Notes (existing practices)` | Additional notes on existing practices |
@@ -192,6 +194,7 @@ Stocking and harvest events for tracked ponds.
 | `Type` | Event type: Stocking, Harvest, Partial stocking, Partial harvest |
 | `Event date` | Date of the stocking or harvest event |
 | `Initial entry` | Whether this is the first stocking/harvest record for this pond (Yes/No) |
+| `Logged by` | FWI staff member who logged the event |
 | `Created at` | Timestamp when the record was created |
 
 ### Lifecycle Information
@@ -271,6 +274,7 @@ Stocking and harvest events for tracked ponds.
 | Column | Description |
 |--------|-------------|
 | `Data verification method` | How the data was verified (Verbal communication, Picture of receipt, etc.) |
+| `Data verified by` | Staff member who verified the data |
 
 ### Lifecycle Stages
 
@@ -290,6 +294,7 @@ Ponds that have left the ARA program.
 | `pond_id` | Anonymized pond identifier |
 | `region` | Geographic region (Eluru or Nellore) |
 | `Date of drop out` | Date the pond left the program |
+| `Added by` | FWI staff member who recorded the dropout |
 | `Tenancy type` | Whether the pond is Owned or Leased by the farmer |
 | `Pond measurements` | Number of water quality measurements taken before dropout |
 | `Reason` | Reason for leaving the program |
@@ -360,7 +365,7 @@ These columns are present but hold no values in any row:
 | File | Empty columns |
 |------|---------------|
 | `water_quality.csv` | Alkalinity (mg/L), Hardness (mg/L) |
-| `stocking_harvest.csv` | Data verification notes, and average weight for Mrigal, Common Carp, Whiteleg Shrimp and Pangasius |
+| `stocking_harvest.csv` | Data verified by, Data verification notes, and average weight for Mrigal, Common Carp, Whiteleg Shrimp and Pangasius |
 
 As the preamble notes, an empty column generally means a parameter we chose
 not to collect, not data that went missing.

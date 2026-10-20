@@ -56,13 +56,15 @@ This data has been anonymised to protect farmer privacy:
 - **Pond IDs are randomly generated.** They are not derived from any farm attribute, so they cannot
   be reversed. The mapping between published IDs and real ponds exists only in a private key that is
   not part of this repository and is not derivable from anything in it.
-- **Excluded:** farmer names, FWI staff names, GPS coordinates, village names, and financial figures. Financial
+- **Excluded:** farmer names, GPS coordinates, village names, and financial figures. Financial
   figures were also recorded in free-text notes; those notes were removed in full. Where this
   removed the only record of a harvest weight, the weight is absent rather than zero — see the
   data dictionary.
 - **Fish source generalised** to categories rather than named suppliers, since a specific local
   supplier can act as a fingerprint for an individual farm.
 - **Free-text notes reviewed** for names and identifying references.
+
+FWI staff names are retained in `Observer`, `Added by` and `Logged by`.
 
 > **Pond identifiers use the `ara2_` prefix from v3.0.0 onward.** Earlier releases used `pond_`.
 > Identifiers are not comparable across releases, and the distinct prefix means a cross-release

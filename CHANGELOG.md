@@ -18,14 +18,7 @@ We recommend excluding them from analysis. See
 `water_quality.csv` now holds 12,431 records. Analyses that used Nellore data
 from this period should be re-run.
 
-### Changed
-
-- Staff name columns removed: `Observer` (`water_quality.csv`), `Added by`
-  (`enrolled_ponds.csv`, `dropouts.csv`), and `Logged by` and
-  `Data verified by` (`stocking_harvest.csv`). The dataset no longer
-  includes FWI staff names.
-
-No other values changed. Pond identifiers are unchanged from 3.0.0.
+Pond identifiers are unchanged from 3.0.0.
 
 ## [3.0.0] - 2026-08-07
 
