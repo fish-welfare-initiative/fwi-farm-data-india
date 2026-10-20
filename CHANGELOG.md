@@ -2,6 +2,30 @@
 
 All notable changes to this dataset are documented here.
 
+## [3.1.0] - 2026-10-20
+
+### Removed — affects analyses
+
+**Nellore water quality data from 1 November 2024 onward has been retracted.**
+
+We found that at least one Nellore water quality measurement had been
+fabricated, and suspect there were others. All 1,136 Nellore records (45
+ponds) dated on or after 1 November 2024 have been moved from
+`water_quality.csv` to the new file `water_quality_nellore_retracted.csv`.
+We recommend excluding them from analysis. See
+[Data Issues and Retraction in Our Farm Program](https://www.fishwelfareinitiative.org/post/data-issues).
+
+`water_quality.csv` now holds 12,431 records. Analyses that used Nellore data
+from this period should be re-run.
+
+### Changed
+
+- One staff member's name has been withheld in `Observer`, `Added by` and
+  `Logged by` and replaced with `Name withheld`; one free-text note
+  referring to them by name was reworded.
+
+No other values changed. Pond identifiers are unchanged from 3.0.0.
+
 ## [3.0.0] - 2026-08-07
 
 ### Changed — breaking

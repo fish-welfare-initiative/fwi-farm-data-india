@@ -17,7 +17,8 @@ and recommend corrective actions when measurements fall outside acceptable range
 
 | File | Records | Description |
 |------|---------|-------------|
-| [`water_quality.csv`](data/water_quality.csv) | 13,567 | Water quality measurements collected during farm visits |
+| [`water_quality.csv`](data/water_quality.csv) | 12,431 | Water quality measurements collected during farm visits |
+| [`water_quality_nellore_retracted.csv`](data/water_quality_nellore_retracted.csv) | 1,136 | **Retracted.** Nellore water quality measurements from 1 November 2024 onward — see below |
 | [`enrolled_ponds.csv`](data/enrolled_ponds.csv) | 324 | Ponds enrolled in the program |
 | [`stocking_harvest.csv`](data/stocking_harvest.csv) | 1,699 | Stocking and harvest events |
 | [`dropouts.csv`](data/dropouts.csv) | 128 | Ponds that left the program |
@@ -30,6 +31,23 @@ with fish currently in them.
 
 See [`docs/data_dictionary.md`](docs/data_dictionary.md) for column definitions, changes in this
 version, and known data issues.
+
+## Retracted Nellore Data
+
+> **Treat the data in [`water_quality_nellore_retracted.csv`](data/water_quality_nellore_retracted.csv)
+> with caution.**
+
+In October 2026 we found that at least one water quality measurement in our Nellore region had
+been fabricated, and we suspect there were others. We have therefore retracted all Nellore water
+quality data collected on or after **1 November 2024**, when Nellore switched to the Winkler method
+for dissolved oxygen.
+
+These 1,136 records (45 ponds) have been moved out of `water_quality.csv` into a separate file. We
+have kept them visible for transparency, but we do not consider them reliable and recommend
+excluding them from analysis. Nellore data from before 1 November 2024 remains in
+`water_quality.csv`.
+
+You can learn more on our blog: [Data Issues and Retraction in Our Farm Program](https://www.fishwelfareinitiative.org/post/data-issues).
 
 ## Privacy
 
@@ -46,7 +64,8 @@ This data has been anonymised to protect farmer privacy:
   supplier can act as a fingerprint for an individual farm.
 - **Free-text notes reviewed** for names and identifying references.
 
-FWI staff names are retained in `Observer`, `Added by` and `Logged by`.
+FWI staff names are retained in `Observer`, `Added by` and `Logged by`, except where a name has
+been withheld, which appears as `Name withheld`.
 
 > **Pond identifiers use the `ara2_` prefix from v3.0.0 onward.** Earlier releases used `pond_`.
 > Identifiers are not comparable across releases, and the distinct prefix means a cross-release
