@@ -20,12 +20,10 @@ from this period should be re-run.
 
 ### Changed
 
-- `Observer` column removed from `water_quality.csv` and
-  `water_quality_nellore_retracted.csv`. Water quality data no longer
-  identifies the staff member who took each measurement.
-- One staff member's name has been withheld in `Added by` and `Logged by`
-  and replaced with `Name withheld`; one free-text note referring to them
-  by name was reworded.
+- Staff name columns removed: `Observer` (`water_quality.csv`), `Added by`
+  (`enrolled_ponds.csv`, `dropouts.csv`), and `Logged by` and
+  `Data verified by` (`stocking_harvest.csv`). The dataset no longer
+  includes FWI staff names.
 
 No other values changed. Pond identifiers are unchanged from 3.0.0.
 

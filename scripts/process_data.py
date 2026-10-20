@@ -40,8 +40,8 @@ OUT = Path(".")
 
 DROP = {
     "Farmer", "Location", "Village", "Sr. No", "parsed_date",
-    # v3.1.0: water quality data no longer identifies who took each measurement.
-    "Observer",
+    # Staff names are not published (from v3.1.0).
+    "Observer", "Added by", "Logged by", "Data verified by",
     # README states financial figures are excluded; these were retained as
     # empty headers in v2.0.0, which contradicted that claim on its face.
     "How much did the farmer pay for the stocked fish and shrimp? (in INR)",
@@ -59,13 +59,10 @@ BARE = _private.BARE
 BARE_STOP = _private.BARE_STOP
 REDACT_SPANS = _private.REDACT_SPANS   # place names and similar, by exact span
 
-# Staff whose names are withheld from publication. Held in the private config
-# for the same reason as the note fragments: listing them here would publish
-# the names this exists to remove. Required, not optional -- a rebuild without
-# it would silently restore the names.
-WITHHELD_STAFF = set(_private.WITHHELD_STAFF)
-WITHHELD_LABEL = "Name withheld"
-STAFF_COLS = {"Added by", "Logged by", "Data verified by"}
+# Staff names that may appear in free-text notes, replaced on publication.
+# Held in the private config for the same reason as the note fragments.
+# Required: a build without it could publish a name from a note.
+STAFF_NAMES = set(_private.STAFF_NAMES)
 
 # Retraction (v3.1.0). Fabricated water quality data was found in Nellore, so
 # every Nellore measurement on or after the Winkler changeover is published
@@ -139,7 +136,7 @@ def clean_text(v, suffix, old2new=None):
     """
     if not isinstance(v, str) or not v.strip():
         return v
-    for name in WITHHELD_STAFF:
+    for name in STAFF_NAMES:
         v = re.sub(rf"\b{re.escape(name)}\b", "our field staff member", v)
     for snip in REMOVE_SNIPPETS:
         if snip in v:
@@ -248,9 +245,7 @@ def write(path, rows, suffix, old2new):
             out = {}
             for k in fields:
                 v = r.get(k)
-                if k in STAFF_COLS and (v or "").strip() in WITHHELD_STAFF:
-                    v = WITHHELD_LABEL
-                elif k == FISH_SRC:
+                if k == FISH_SRC:
                     v = fish_category(v)
                 elif isinstance(v, str):
                     v = clean_text(v, suffix, old2new)

@@ -165,7 +165,6 @@ Snapshot of ponds enrolled in the ARA program as of February 2, 2026.
 | `region` | Geographic region (Eluru or Nellore) |
 | `Enrollment mechanism` | How the farmer was recruited to the program (e.g., "Organic" for organic outreach, "PwC" for PwC partnership referrals) |
 | `Status` | Treatment or Control designation |
-| `Added by` | FWI staff member who added the pond |
 | `Culture change` | Whether the farmer changed their culture type (e.g., "Grow out to breed out") |
 | `Existing practices` | Practices the farmer was already doing before joining ARA |
 | `Notes (existing practices)` | Additional notes on existing practices |
@@ -193,7 +192,6 @@ Stocking and harvest events for tracked ponds.
 | `Type` | Event type: Stocking, Harvest, Partial stocking, Partial harvest |
 | `Event date` | Date of the stocking or harvest event |
 | `Initial entry` | Whether this is the first stocking/harvest record for this pond (Yes/No) |
-| `Logged by` | FWI staff member who logged the event |
 | `Created at` | Timestamp when the record was created |
 
 ### Lifecycle Information
@@ -273,7 +271,6 @@ Stocking and harvest events for tracked ponds.
 | Column | Description |
 |--------|-------------|
 | `Data verification method` | How the data was verified (Verbal communication, Picture of receipt, etc.) |
-| `Data verified by` | Staff member who verified the data |
 
 ### Lifecycle Stages
 
@@ -293,7 +290,6 @@ Ponds that have left the ARA program.
 | `pond_id` | Anonymized pond identifier |
 | `region` | Geographic region (Eluru or Nellore) |
 | `Date of drop out` | Date the pond left the program |
-| `Added by` | FWI staff member who recorded the dropout |
 | `Tenancy type` | Whether the pond is Owned or Leased by the farmer |
 | `Pond measurements` | Number of water quality measurements taken before dropout |
 | `Reason` | Reason for leaving the program |
@@ -364,7 +360,7 @@ These columns are present but hold no values in any row:
 | File | Empty columns |
 |------|---------------|
 | `water_quality.csv` | Alkalinity (mg/L), Hardness (mg/L) |
-| `stocking_harvest.csv` | Data verified by, Data verification notes, and average weight for Mrigal, Common Carp, Whiteleg Shrimp and Pangasius |
+| `stocking_harvest.csv` | Data verification notes, and average weight for Mrigal, Common Carp, Whiteleg Shrimp and Pangasius |
 
 As the preamble notes, an empty column generally means a parameter we chose
 not to collect, not data that went missing.
@@ -391,5 +387,3 @@ not to collect, not data that went missing.
 | Future-dated event | One stocking event in `stocking_harvest.csv` is dated after the release date, most likely a planned event recorded as actual. |
 | Missing harvest weights | See the note on removed financial content above. |
 | Retracted Nellore water quality data | Nellore water quality measurements from 1 November 2024 onward are not in `water_quality.csv`. They are in `water_quality_nellore_retracted.csv`; see that section above. |
-| Withheld staff name | One staff member's name appears as `Name withheld` in `Added by` and `Logged by`. |
-| No observer column | Water quality files do not record which staff member took each measurement. The `Observer` column was removed in v3.1.0. |
